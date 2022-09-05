@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+
+    <!-- Materialize CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Fontawesome 6 CND-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <nav class="orange darken-2">
+        <div class="nav-wrapper">
+          <a @click="status='read'" href="#">Inicio</a>
+        </div>
+      </nav>
+      <!-- READ -->
+      <div v-if="status == 'read'">
+        <div class="container">
+          <div class="section">
+            <!--   Icon Section   -->
+            <div class="row">
+              <div v-for="tarefa in tasks" class="card-tarefa">
+                <div class="card horizontal">
+                  <div class="card-stacked">
+                    <div class="card-content">
+                      <p>{{ tarefa.title }}</p>
+                      <span class="projeto">{{tarefa.project}}</span> |
+                      <span>{{tarefa.dueTo}}</span>
+                    </div>
+                    <div class="card-action">
+                      <a @click="mostraFormUpdateNota(tarefa.id)" href="#"
+                        >Atualizar</a
+                      >
+                      <a @click="deletaNota(tarefa.id)" href="#">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="add">
+          <a
+            @click="mostraSecaoAdicionar"
+            class="btn-floating btn-large waves-effect waves-light red"
+            href="#"
+            ><i class="fa-solid fa-plus"></i
+          ></a>
+        </div>
+      </div>
+      <!-- CREATE -->
+      <div v-else-if="status=='create'">
+        <div class="section">
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s12" id="elTasks">
+              <!-- New tasks area-->
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <h2>New Task</h2>
+                    <form action="">
+                      <div class="input-field col s12">
+                        <input
+                          v-model="newTask.title"
+                          placeholder="Title"
+                          id="title"
+                          type="text"
+                          class="validate"
+                          required
+                        />
+                        <label for="title">Title</label>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <select id="project" v-model="newTask.project">
+                          <option value="" disabled selected>
+                            Choose your option
+                          </option>
+                          <option value="Estudos">Estudos</option>
+                          <option value="Financeiro">Financeiro</option>
+                          <option value="Trabalho">Trabalho</option>
+                        </select>
+                        <label for="project">Pick a Project</label>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <input
+                          type="text"
+                          class="datepicker"
+                          id="dueTo"
+                          v-model="newTask.dueTo"
+                          placeholder=""
+                        />
+                        <label for="dueTo">Date due to</label>
+                      </div>
+
+                      <a
+                        class="waves-effect waves-light btn-large"
+                        id="btnSave"
+                        @click="criaNota"
+                        >Save</a
+                      >
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="status=='update'">
+        <div class="section">
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s12" id="elTasks">
+              <!-- New tasks area-->
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <h2>{{status}} Task</h2>
+
+                    <div class="input-field col s12">
+                      <input
+                        v-model="newTask.title"
+                        id="title"
+                        type="text"
+                        class="validate"
+                        required
+                      />
+                      <label for="title">Title</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                      <select id="project" v-model="newTask.project">
+                        <option value="" disabled selected>
+                          Choose your option
+                        </option>
+                        <option value="Estudos">Estudos</option>
+                        <option value="Financeiro">Financeiro</option>
+                        <option value="Trabalho">Trabalho</option>
+                      </select>
+                      <label for="project">Pick a Project</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                      <input
+                        type="text"
+                        class="datepicker"
+                        id="dueTo"
+                        v-model="newTask.dueTo"
+                        placeholder=""
+                      />
+                      <label for="dueTo">Date due to</label>
+                    </div>
+
+                    <a
+                      class="waves-effect waves-light btn-large"
+                      id="btnSave"
+                      @click="criaNota"
+                      >Save</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer orange darken-3">
+        <div class="footer-copyright">
+          <div class="container">© 2022 Frontend</div>
+        </div>
+      </footer>
+    </div>
+    <!-- Materialize JavaScript CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Axios API -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./tasksapi.js"></script>
+    <script src="./script.js"></script>
+    <script>
+      var elems = document.querySelectorAll("select");
+      M.FormSelect.init(elems);
+    </script>
+  </body>
+</html>
