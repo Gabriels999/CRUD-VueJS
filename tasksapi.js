@@ -21,6 +21,11 @@ function deleteTask(taskId, cb) {
   axios.delete(`/tasks/${taskId}`).then((r) => cb(r.data));
 }
 
-function updateTask(taskId, cb) {
-  axios.put(`/tasks/${taskId}`).then((r) => cb(r.data));
+function updateTask(taskId, title, project, date, cb) {
+  const taskData = {
+    title: title,
+    project: project,
+    dueTo: date,
+  };
+  axios.put(`/tasks/${taskId}`, taskData).then((r) => cb(r.data));
 }

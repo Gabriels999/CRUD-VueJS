@@ -34,13 +34,14 @@ var app = new Vue({
       deleteTask(id, (data) => this.buscaNotas());
     },
     mostraSecaoAtualizar(id) {
-      this.status = "create";
+      this.status = "update";
       getTask(id, (data) => (this.newTask = data));
     },
-    // atualizaNota(id) {
-    //   updateTask(id, (data) => (this.updateTask = data));
-    //   this.status = "read";
-    // },
+    atualizaNota(id) {
+      const { title, project, dueTo, usuario } = this.newTask;
+      updateTask(id, title, project, dueTo, (data) => this.buscaNotas());
+      this.status = "read";
+    },
   },
   created() {
     this.buscaNotas();
