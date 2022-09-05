@@ -45,7 +45,7 @@
                       <span>{{tarefa.dueTo}}</span>
                     </div>
                     <div class="card-action">
-                      <a @click="mostraFormUpdateNota(tarefa.id)" href="#"
+                      <a @click="mostraSecaoAtualizar(tarefa.id)" href="#"
                         >Atualizar</a
                       >
                       <a @click="deletaNota(tarefa.id)" href="#">Delete</a>
@@ -171,10 +171,7 @@
                       <label for="dueTo">Date due to</label>
                     </div>
 
-                    <a
-                      class="waves-effect waves-light btn-large"
-                      id="btnSave"
-                      @click="criaNota"
+                    <a class="waves-effect waves-light btn-large" id="btnSave"
                       >Save</a
                     >
                   </div>

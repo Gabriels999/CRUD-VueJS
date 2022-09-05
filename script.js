@@ -33,14 +33,14 @@ var app = new Vue({
     deletaNota(id) {
       deleteTask(id, (data) => this.buscaNotas());
     },
-    mostraFormUpdateNota(id) {
-      fetch(`http://localhost:3000/tasks/${id}`)
-        .then((response) => response.json())
-        .then((task) => {
-          this.newTask = task;
-          this.status = "create";
-        });
+    mostraSecaoAtualizar(id) {
+      this.status = "create";
+      getTask(id, (data) => (this.newTask = data));
     },
+    // atualizaNota(id) {
+    //   updateTask(id, (data) => (this.updateTask = data));
+    //   this.status = "read";
+    // },
   },
   created() {
     this.buscaNotas();

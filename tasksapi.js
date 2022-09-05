@@ -4,7 +4,7 @@ function getTasks(cb) {
   axios.get("/tasks").then((r) => cb(r.data));
 }
 
-function getTask(cb, taskId) {
+function getTask(taskId, cb) {
   axios.get(`/tasks/${taskId}`).then((r) => cb(r.data));
 }
 
@@ -19,4 +19,8 @@ function createTask(title, project, date, cb) {
 
 function deleteTask(taskId, cb) {
   axios.delete(`/tasks/${taskId}`).then((r) => cb(r.data));
+}
+
+function updateTask(taskId, cb) {
+  axios.put(`/tasks/${taskId}`).then((r) => cb(r.data));
 }
